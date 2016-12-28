@@ -28,7 +28,7 @@ from setuptools import setup
 base_dir = 'bss'
 setup(
     name='bss',
-    version='0.9.2',
+    version='0.9.4',
     packages=['bss'],
     package_dir={'bss': base_dir, },
     test_suite='nose.collector',

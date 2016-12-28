@@ -1,104 +1,71 @@
-[BrainSuite] (c) 2016 Statistics Toolbox (bss)
+[BrainSuite] (c) 2016 Statistics Toolbox (bss)  
 =========
----------
+
+
 The [BrainSuite] (c) statistics toolbox allows the application of advanced statistical models to surface, image and curve based outputs generated from BrainSuite. This enables population or group modeling of cortical or sulcal morphology. Some features of the toolbox are:
 
   - a python interface for using [statsmodels] with [pandas] for a pure python implementation
   - Ability to plot graphs, charts and visualizations on surfaces (coming soon)
 
+T1-weighted MRI image processing and registration steps include cortical surface extraction 
+and alignment to a reference atlas using [SVReg], which performs surface-constrained volume registration of triangular meshes and image intensities. 
+BSS is then used to perform population level statistical analysis of various neuroimaging measures. 
 
-Download
+
+
+Features
 ----
+* Volumetric TBM: voxel-wise analysis of the magnitude of the 3D deformation fields representing volumetric shrinking and expansions of MRI images in the atlas space.
+* Surface TBM: vertex-wise analysis of the magnitude of the 3D deformation fields representing shrinking and expansions of cortical surfaces in the atlas space.
+* ROI-based analysis: analysis of average gray matter thickness, surface area, and gray matter volume over a cortical ROI.
+* Masking for hypothesis-driven testing: focal analysis of vertex-wise brain measures masked over an ROI based on a priori hypotheses. 
+* Deformation-based morphometry for diffusion images: voxel-wise analysis of quantitative diffusion characteristics (e.g., fractional anisotropy, mean diffusivity, radial diffusivity) resampled to a common atlas space using SVReg.
 
-Currently download from https://bitbucket.org/bmapdev/bss/
+For the above analysis methods, BSS provides functions to fit linear regression models, ANOVA and hypothesis testing on the measures described above. Additionally, it enables testing interaction effects of different variables on brain imaging measures. In addition to testing for multiple comparison using the false discovery rate, BSS now supports permutation testing for multiple hypothesis testing.
+ 
 
-Requirements (short version)
+Installation
+----
+Open a command line terminal and type  ``pip install bss``.
+
+Full souce code is available at [github.org/shjoshi/bss].
+
+Dependencies
 -----------
-* [R] - built as a library with –enable-R-shlib (Default on Windows and Mac OSX)
+The ``pip install bss`` command should install the dependencies. 
 * [Python] 2.7 
-* Base Python packages - virtualenv, pip, numpy, scipy
-> ##### **NOTE:** Alternately, install [Canopy] python. Makes life much easier.
-* Add on Python packages - [pandas], [statsmodels]
+* [pandas], [statsmodels], [nibabel], [matplotlib] 
 
-Requirements (long version)
+Installation tips
 -----------
-To stick to a pure python execution, one could skip installing R, and Rpy2. However, in our benchmarks, Rpy2+R currently shows the best performance. 
+We recommend installing bss in a virtual environment.
+See [virtualenv], [conda] etc. 
 
-Thus, to get all the functionality of the toolbox, it is recommended to install the following software on your computer.
-
-* Working [python] installation (We recommend version 2.7) -   
-with the following packages:
-    * virtualenv, pip, numpy, scipy  
-
-> ##### **NOTE:** Alternately, you could download [Canopy] express, a comprehensive python framework geared towards scientifc computing, available for free.
-
-* [R] - R software for statistical computing (built as a library with –enable-R-shlib)
-    
-    This is by default on Mac OSX and Windows. 
-    
-    On Linux, for e.g. in the root directory of the R source, one can do:
-
-    ```sh
-sudo ./configure  --enable-R-shlib  
-sudo make  
-sudo make install  
-    ```
+For those who do not have Python installed, we recommend [miniconda]. 
+Install [miniconda] and then run ``pip install bss`` on the command line. 
 
 
-* [statsmodels] - pure python module for statistical inference and much more
+Installation tips
+-----------
+For usage, please refer to the [tutorials].
 
 
-Installation for Mac OSX/Linux - Approach 1
---------------
-To be followed if all the requirements above are satisfied. 
-
-It is recommended to create a virtual python environment in your BrainSuite directory.
-
-For e.g., if your BrainSuite installation is located at /Applications/Brainsuite13a, and the
-unzipped bss package is located at ~/bss-0.1dev, then open the terminal and type
-```sh
-virtualenv --system-site-packages /Applications/Brainsuite13a/bssenv
-/Applications/Brainsuite13a/bssenv/bin/python ~/bss-0.1dev/setup.py install
-```
-
-Installation for Mac OSX/Linux  - Approach 2
---------------
->####**To be developed.**
-
-Bootstrap everything. Start with a basic python installation
-
-Create a virtualenv in the BrainSuite directory
-
-Install all the packages in virtualenv
-
-Install the bss package in virtualenv
-
-
-Example for running ANOVA for model comparison
---------------
-The source package includes a test directory with sample data. Assuming the unzipped source directory is located at: ~/bmapdev-bss, open the file
-```sh
-~/bmapdev-bss/bss/test/data/sample1/modelspec.ini
-```
-and change the respective paths for the variables
-```sh
-subjectdir, demographics, phenotype_attribute_matrix, atlas_surface
-```
-to correspond to the paths on your file system. 
-Then type,
-
-```sh
-/Applications/Brainsuite13a/bssenv/bin/bss_model.py -modelspec
-~/bmapdev-bss/bss/test/data/sample1/modelspec.ini -outdir ~/ -statsengine R
-```
----
 License
 ----
 
-GPLv2
+GNU [General Public License] v2.
 
 [BrainSuite]:http://brainsuite.org
 [python]:http://www.python.org 
 [Canopy]:https://www.enthought.com/products/canopy/
 [statsmodels]:http://statsmodels.sourceforge.net
 [pandas]:http://pandas.pydata.org
+[github.org/shjoshi/bss]:https://github.org/shjoshi/bss
+[nibabel]: http://nipy.org/nibabel/
+[matplotlib]: http://matplotlib.org/
+[virtualenv]: https://virtualenv.pypa.io/en/stable/
+[conda]: http://conda.pydata.org/docs/using/envs.html
+[miniconda]: http://conda.pydata.org/miniconda.html
+[tutorials]: http://brainsuite.org/bsstutorials/
+[General Public License]: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
+[SVReg]: http://brainsuite.org/processing/svreg/
